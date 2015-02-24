@@ -40,7 +40,8 @@ let s:giphy_api_key = 'dc6zaTOxFJmzC' " public beta key
 function! s:giphy_translate(query)
   let l:translate_endpoint = 'http://api.giphy.com/v1/gifs/translate?s=%s&api_key=%s'
 
-  let res = webapi#http#get(printf(l:translate_endpoint, a:query, s:giphy_api_key))
+  let q = webapi#http#encodeURIComponent(a:query)
+  let res = webapi#http#get(printf(l:translate_endpoint, q, s:giphy_api_key))
   let obj = webapi#json#decode(res.content)
 
   " Get 200px fixed width for small file size; We're rendering to terminal so quality isn't an issue.
