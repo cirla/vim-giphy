@@ -60,7 +60,6 @@ function! s:Giphy(query) abort
                       \ rm $CONCAT_FILE'
 
     let image_info = s:giphy_translate(a:query)
-    echo printf(l:ffmpeg_cmd, image_info.mp4, a:query)
     execute '!'.printf(l:ffmpeg_cmd, image_info.mp4, a:query)
 endfunction
 
