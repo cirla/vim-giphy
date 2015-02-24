@@ -43,6 +43,7 @@ function! s:giphy_translate(query)
   let res = webapi#http#get(printf(l:translate_endpoint, a:query, s:giphy_api_key))
   let obj = webapi#json#decode(res.content)
 
+  " Get 200px fixed width for small file size; We're rendering to terminal so quality isn't an issue.
   return obj.data.images.fixed_width
 endfunction
 
@@ -50,9 +51,15 @@ endfunction
 
 call s:command("-bar -nargs=1 Giphy :execute s:Giphy(<f-args>)")
 function! s:Giphy(query) abort
-    let l:ffmpeg_command = 'ffmpeg -v 0 -i "%s" -vcodec rawvideo -pix_fmt rgb24 -window_title "%s - Press q to exit" -f caca -'
+    let l:ffmpeg_cmd = 'CONCAT_FILE=`mktemp /tmp/giphy_loop.XXXXXXX` &&
+                      \ for i in {1..100}; do echo "file ''%s''" >> $CONCAT_FILE; done &&
+                      \ ffmpeg -v 0 -f concat -i $CONCAT_FILE
+                          \ -vcodec rawvideo -pix_fmt rgb24
+                          \ -window_title "%s - Press q to exit" -f caca - &&
+                      \ rm $CONCAT_FILE'
 
     let image_info = s:giphy_translate(a:query)
-    execute '!'.printf(l:ffmpeg_command, image_info.mp4, a:query)
+    echo printf(l:ffmpeg_cmd, image_info.mp4, a:query)
+    execute '!'.printf(l:ffmpeg_cmd, image_info.mp4, a:query)
 endfunction
 
