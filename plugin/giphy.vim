@@ -36,7 +36,7 @@ augroup END
 
 " Section: Giphy API
 
-let s:giphy_api_key = 'dc6zaTOxFJmzC'
+let s:giphy_api_key = 'dc6zaTOxFJmzC' " public beta key
 function! s:giphy_translate(query)
   let l:translate_endpoint = 'http://api.giphy.com/v1/gifs/translate?s=%s&api_key=%s'
 
@@ -50,8 +50,9 @@ endfunction
 
 call s:command("-bar -nargs=1 Giphy :execute s:Giphy(<f-args>)")
 function! s:Giphy(query) abort
+    let l:ffmpeg_command = 'ffmpeg -v 0 -i "%s" -vcodec rawvideo -pix_fmt rgb24 -window_title "%s - Press q to exit" -f caca -'
+
     let image_info = s:giphy_translate(a:query)
-    execute "new"
-    call append(0, image_info.url)
+    execute '!'.printf(l:ffmpeg_command, image_info.mp4, a:query)
 endfunction
 
