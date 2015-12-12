@@ -31,7 +31,7 @@ endfunction
 
 augroup giphy
     autocmd!
-    autocmd BufNewFile,BufReadPost * call giphy#init()
+    autocmd BufEnter,BufReadPost * call giphy#init()
 augroup END
 
 " Section: Giphy API
