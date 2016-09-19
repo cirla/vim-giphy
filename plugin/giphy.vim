@@ -54,7 +54,7 @@ call s:command("-bar -nargs=1 Giphy :execute s:Giphy(<f-args>)")
 function! s:Giphy(query) abort
     let l:ffmpeg_cmd = 'CONCAT_FILE=`mktemp /tmp/giphy_loop.XXXXXXX` &&
                       \ for i in {1..100}; do echo "file ''%s''" >> $CONCAT_FILE; done &&
-                      \ ffmpeg -protocol_whitelist file,tcp,http
+                      \ ffmpeg -protocol_whitelist file,tcp,http,https,tls
                           \ -v error -safe 0 -f concat -i $CONCAT_FILE
                           \ -vcodec rawvideo -pix_fmt rgb24
                           \ -window_title "%s - Press q to exit" -f caca - &&
