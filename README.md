@@ -2,6 +2,10 @@
 
 Giphy in your vim.
 
+## Testimonials
+
+* "As an avid vim user, I'm all about productivity and ensuring that my hands never leave the keyboard. Therefore, I've always felt that leaving vim just to enjoy a humorous animated GIF is not worth my time. Thanks to vim-giphy, I can take very efficient breaks by summoning GIFs right inside of vim! Now my hands never leave the keyboard even during my breaks!" - [Enraged Ginger](https://github.com/enragedginger)
+
 ## 1. Dependencies
 
 * \*nix(-like) OS (for `mktemp`, etc.)
