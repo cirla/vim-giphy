@@ -16,7 +16,7 @@ Giphy in your vim.
 ### 3.1 Install Prerequisites
 #### 3.1.1 [ffmpeg](https://www.ffmpeg.org/)
 ##### OS X
-1. Run `brew install ffmpeg --enable-libcaca`
+1. Run `brew install ffmpeg --with-libcaca`
 
 #### 3.1.2 [webapi-vim](https://github.com/mattn/webapi-vim)
 ##### Plug/Vundle
